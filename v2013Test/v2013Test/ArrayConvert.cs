@@ -275,4 +275,34 @@ namespace ArrayConvert
 
         //
     }
+
+    public class String
+    {
+        /// <summary>
+        /// 将十六进制字符串转换为字节数组
+        /// </summary>
+        /// <param name="s">待转换的十六进制字符串</param>
+        /// <returns>转换后的字节数组</returns>
+        public static byte[] HexToByteArray(string s, int fromBase)
+        {
+
+            int fromBaseLength;
+            byte[] array = new byte[s.Length / 2];
+
+            try
+            {
+              
+
+
+
+                for (int i = 0; i < s.Length; i += 2)
+                    array[i / 2] = (byte)Convert.ToByte(s.Substring(i, 2), 16);
+                return array;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"ArrayConvert.String.ToByteArray异常:{e.Message}");
+            }
+        }
+    }
 }
