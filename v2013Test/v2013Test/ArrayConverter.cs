@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ArrayConvert
+namespace ArrayConverter
 {
-    public class ByteArray
+    public class ByteArrayConverter
     {
         /// <summary>
         /// 将byte[]转换为byte
@@ -21,11 +21,11 @@ namespace ArrayConvert
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //返回转换结果
-                return Convert.ToByte(tempArray);
+                return Convert.ToByte(tempArray[0]);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToByte");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToByte异常:{e.Message}");
             }
         }
 
@@ -46,11 +46,11 @@ namespace ArrayConvert
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //返回转换结果
-                return Convert.ToSByte(tempArray);
+                return Convert.ToSByte(tempArray[0]);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToSByte");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToSByte异常:{e.Message}");
             }
         }
 
@@ -80,9 +80,9 @@ namespace ArrayConvert
                 //返回转换结果
                 return BitConverter.ToInt16(tempArray, 0);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToShort");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToShort异常:{e.Message}");
             }
         }
 
@@ -111,9 +111,9 @@ namespace ArrayConvert
                 //返回转换结果
                 return BitConverter.ToUInt16(tempArray, 0);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToUShort");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToUShort异常:{e.Message}");
             }
         }
 
@@ -142,9 +142,9 @@ namespace ArrayConvert
                 //返回转换结果
                 return BitConverter.ToInt32(tempArray, 0);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToInt");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToInt异常:{e.Message}");
             }
         }
 
@@ -173,9 +173,9 @@ namespace ArrayConvert
                 //返回转换结果
                 return BitConverter.ToUInt32(tempArray, 0);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToUInt");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToUInt异常:{e.Message}");
             }
         }
 
@@ -204,9 +204,9 @@ namespace ArrayConvert
                 //返回转换结果
                 return BitConverter.ToInt64(tempArray, 0);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToLong");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToLong异常:{e.Message}");
             }
         }
 
@@ -235,73 +235,130 @@ namespace ArrayConvert
                 //返回转换结果
                 return BitConverter.ToUInt64(tempArray, 0);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToULong");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToULong异常:{e.Message}");
             }
         }
 
         /// <summary>
-        /// 将byte[]转换为时间字符串
+        /// 将byte[]转换为字面意义上的字符串
         /// </summary>
-        /// <param name="sourceArray">待转换的byte[]</param>
-        /// <param name="sourceStartIndex">数据的起点</param>
-        /// <param name="length">数据的长度</param>
-        /// <returns>转换后的时间(string)</returns>
-        public static string ToSingleByteTime(byte[] sourceArray, int sourceStartIndex, int length)
+        /// <param name="sourceArray"></param>
+        /// <param name="sourceStartIndex"></param>
+        /// <param name="length"></param>
+        /// <param name="fromBase"></param>
+        /// <param name="isFillZero"></param>
+        /// <param name="isToUpper"></param>
+        /// <returns></returns>
+        public static string ToLiteralString(byte[] sourceArray, int sourceStartIndex, int length, int fromBase, bool isFillZero = true, bool isToUpper = true)
         {
-            string time = "";
+            int fillZeroLength;
+            string result = "";
             byte[] tempArray = new byte[length];
 
             try
             {
+                //根据进制确定填充的长度
+                switch (fromBase)
+                {
+                    case 2:
+                        fillZeroLength = 8;
+                        break;
+                    case 8:
+                        fillZeroLength = 3;
+                        break;
+                    case 10:
+                        fillZeroLength = 3;
+                        break;
+                    case 16:
+                        fillZeroLength = 2;
+                        break;
+                    default:
+                        throw new Exception("进制选择错误");
+                }
+
                 //提取待转换的字节数组
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //计算转换结果
                 foreach (byte i in tempArray)
                 {
-                    time = time + Convert.ToString(i).PadLeft(2, '0');
+                    //转换
+                    if (isFillZero)
+                        result = result + Convert.ToString(i, fromBase).PadLeft(fillZeroLength, '0');
+                    else
+                        result = result + Convert.ToString(i, fromBase);
                 }
 
+                //选择转大写or小写
+                if (isToUpper)
+                    result = result.ToUpper();
+                else
+                    result = result.ToLower();
+                
                 //返回转换结果
-                return time;
+                return result;
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("异常:ArrayConvert.ByteArray.ToULong");
+                throw new Exception($"函数ArrayConvert.ByteArray.ToULong异常:{e.Message}");
             }
         }
-
-        //
     }
 
-    public class String
+    public class StringConverter
     {
         /// <summary>
         /// 将十六进制字符串转换为字节数组
         /// </summary>
-        /// <param name="s">待转换的十六进制字符串</param>
+        /// <param name="input">待转换的十六进制字符串</param>
         /// <returns>转换后的字节数组</returns>
-        public static byte[] HexToByteArray(string s, int fromBase)
+        public static byte[] ToByteArray(string input, int fromBase)
         {
 
             int fromBaseLength;
-            byte[] array = new byte[s.Length / 2];
+            byte[] array;
 
             try
             {
-              
+                //根据进制确定字符串的单元截取长度
+                switch(fromBase)
+                {
+                    case 2:
+                        fromBaseLength = 8;
+                        break;
+                    case 8:
+                        fromBaseLength = 3;
+                        break;
+                    case 10:
+                        fromBaseLength = 3;
+                        break;
+                    case 16:
+                        fromBaseLength = 2;
+                        break;
+                    default:
+                        throw new Exception("进制选择错误");
+                }
 
+                //校验字符串长度与进制匹配关系，相符就计算结果，不相符就返回异常
+                if (input.Length % fromBaseLength == 0)
+                {
+                    array = new byte[input.Length / fromBaseLength];
+                    for (int i = 0; i < input.Length; i += fromBaseLength)
+                        array[i / fromBaseLength] = (byte)Convert.ToByte(input.Substring(i, fromBaseLength), fromBase);
+                }
+                else
+                {
+                    throw new Exception("字符串长度与进制不符");
+                }
 
-
-                for (int i = 0; i < s.Length; i += 2)
-                    array[i / 2] = (byte)Convert.ToByte(s.Substring(i, 2), 16);
+                //返回转换结果
                 return array;
             }
             catch (Exception e)
             {
-                throw new Exception($"ArrayConvert.String.ToByteArray异常:{e.Message}");
+                throw new Exception($"函数ArrayConvert.String.ToByteArray异常:{e.Message}");
             }
         }
     }
