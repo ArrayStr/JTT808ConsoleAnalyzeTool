@@ -16,7 +16,7 @@ namespace ArrayConverter
             byte[] tempArray = new byte[length];
 
             try
-            {
+            {   
                 //提取待转换的字节数组
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
@@ -61,7 +61,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的short</returns>
-        public static short ToShort(byte[] sourceArray, int sourceStartIndex)
+        public static short ToShort(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 2;
             byte[] tempArray = new byte[length];
@@ -72,7 +72,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian)
+                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -92,7 +92,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的ushort</returns>
-        public static ushort ToUShort(byte[] sourceArray, int sourceStartIndex)
+        public static ushort ToUShort(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 2;
             byte[] tempArray = new byte[length];
@@ -103,7 +103,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian)
+                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -123,7 +123,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的int</returns>
-        public static int ToInt(byte[] sourceArray, int sourceStartIndex)
+        public static int ToInt(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 4;
             byte[] tempArray = new byte[length];
@@ -134,7 +134,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian)
+                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -154,7 +154,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的uint</returns>
-        public static uint ToUInt(byte[] sourceArray, int sourceStartIndex)
+        public static uint ToUInt(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 4;
             byte[] tempArray = new byte[length];
@@ -165,7 +165,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian)
+                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -185,7 +185,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的long</returns>
-        public static long ToLong(byte[] sourceArray, int sourceStartIndex)
+        public static long ToLong(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 8;
             byte[] tempArray = new byte[length];
@@ -196,7 +196,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian)
+                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -216,7 +216,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的ulong</returns>
-        public static ulong ToULong(byte[] sourceArray, int sourceStartIndex)
+        public static ulong ToULong(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 8;
             byte[] tempArray = new byte[length];
@@ -227,7 +227,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian)
+                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -322,6 +322,10 @@ namespace ArrayConverter
 
             try
             {
+                //不允许输入空字符串
+                if (input == string.Empty)
+                    throw new Exception("不允许输入空字符串");
+                
                 //根据进制确定字符串的单元截取长度
                 switch(fromBase)
                 {
