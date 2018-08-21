@@ -72,7 +72,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -103,7 +103,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -134,7 +134,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -165,7 +165,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -196,7 +196,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }
@@ -227,7 +227,7 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //将小端对齐改为大端对齐
-                if (BitConverter.IsLittleEndian & isConvertToBigEndian)
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
                 {
                     Array.Reverse(tempArray);
                 }

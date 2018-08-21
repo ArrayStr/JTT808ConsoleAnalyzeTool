@@ -5,14 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace v2013Test
 {
-    class VerifyMessage
+    class PreProcess
     {
         /// <summary>
         /// 检查消息合法并转换成大写
         /// </summary>
         /// <param name="msg">待检查的消息</param>
         /// <returns>转换为大写的合法消息</returns>
-        public static string EntireMessage(string msg)
+        public static string VerifyEntireMessage(string msg)
         {
             const string hexPattern = "^[0-9A-Fa-f]+$";
 
@@ -42,13 +42,20 @@ namespace v2013Test
         }
 
 
+        /*
+        public void SpliteMessage(byte[] msg, out byte[] msgStartTag, out byte[] msgHead, out byte[] msgBody, out byte[] msgCheckCode, out byte[] msgEndTag)
+        {
+
+        }
+        */
+
         /// <summary>
         /// 计算消息的校验码是否正确
         /// </summary>
         /// <param name="msgHead">消息头</param>
         /// <param name="msgBody">消息体</param>
         /// <param name="msgCheckCode">消息校验码</param>
-        public static void CheckCode(byte[] msgHead, byte[] msgBody, byte[] msgCheckCode)
+        public static void VerifyCheckCode(byte[] msgHead, byte[] msgBody, byte[] msgCheckCode)
         {
             List<byte> list = new List<byte>();
 

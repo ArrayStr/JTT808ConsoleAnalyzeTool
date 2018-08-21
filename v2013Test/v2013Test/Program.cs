@@ -22,7 +22,7 @@ namespace v2013Test
 
 
                 //检验整条消息的合法性，如果合法就将消息转为大写
-                convertedInput = VerifyMessage.EntireMessage(input);
+                convertedInput = PreProcess.CheckEntireMessage(input);
 
                 //将消息拆分为: 起始标识位, 消息头, 消息体, 校验码, 结束标识位
 
