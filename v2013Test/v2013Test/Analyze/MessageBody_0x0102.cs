@@ -4,7 +4,7 @@ using System.Text;
 
 namespace v2013Test
 {
-    class AnalyzeMessageBody_0x0102
+    class MessageBody_0x0102
     {
     }
 }

@@ -1,31 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace ArrayConverter
 {
-    public class ByteArrayConverter
+    public class BytesConverter
     {
+        public int returnLength { get; private set; }
+
         /// <summary>
         /// 将byte[]转换为byte
         /// </summary>
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的byte</returns>
-        public static byte ToByte(byte[] sourceArray, int sourceStartIndex)
+        public byte ToByte(byte[] sourceArray, int sourceStartIndex)
         {
             int length = 1;
             byte[] tempArray = new byte[length];
 
             try
-            {   
+            {
                 //提取待转换的字节数组
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //返回转换结果
+                returnLength = length;
                 return Convert.ToByte(tempArray[0]);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToByte异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
@@ -35,7 +42,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的sbyte</returns>
-        public static sbyte ToSByte(byte[] sourceArray, int sourceStartIndex)
+        public sbyte ToSByte(byte[] sourceArray, int sourceStartIndex)
         {
             int length = 1;
             byte[] tempArray = new byte[length];
@@ -46,11 +53,12 @@ namespace ArrayConverter
                 Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
                 //返回转换结果
+                returnLength = length;
                 return Convert.ToSByte(tempArray[0]);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToSByte异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
@@ -61,7 +69,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的short</returns>
-        public static short ToShort(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
+        public short ToShort(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 2;
             byte[] tempArray = new byte[length];
@@ -78,11 +86,12 @@ namespace ArrayConverter
                 }
 
                 //返回转换结果
+                returnLength = length;
                 return BitConverter.ToInt16(tempArray, 0);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToShort异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
@@ -92,7 +101,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的ushort</returns>
-        public static ushort ToUShort(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
+        public ushort ToUShort(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 2;
             byte[] tempArray = new byte[length];
@@ -109,11 +118,12 @@ namespace ArrayConverter
                 }
 
                 //返回转换结果
+                returnLength = length;
                 return BitConverter.ToUInt16(tempArray, 0);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToUShort异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
@@ -123,7 +133,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的int</returns>
-        public static int ToInt(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
+        public int ToInt(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 4;
             byte[] tempArray = new byte[length];
@@ -140,11 +150,12 @@ namespace ArrayConverter
                 }
 
                 //返回转换结果
+                returnLength = length;
                 return BitConverter.ToInt32(tempArray, 0);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToInt异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
@@ -154,7 +165,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的uint</returns>
-        public static uint ToUInt(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
+        public uint ToUInt(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 4;
             byte[] tempArray = new byte[length];
@@ -171,11 +182,12 @@ namespace ArrayConverter
                 }
 
                 //返回转换结果
+                returnLength = length;
                 return BitConverter.ToUInt32(tempArray, 0);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToUInt异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
@@ -185,7 +197,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的long</returns>
-        public static long ToLong(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
+        public long ToLong(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 8;
             byte[] tempArray = new byte[length];
@@ -202,11 +214,12 @@ namespace ArrayConverter
                 }
 
                 //返回转换结果
+                returnLength = length;
                 return BitConverter.ToInt64(tempArray, 0);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToLong异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
@@ -216,7 +229,7 @@ namespace ArrayConverter
         /// <param name="sourceArray">待转换的byte[]</param>
         /// <param name="sourceStartIndex">数据的起点</param>
         /// <returns>转换后的ulong</returns>
-        public static ulong ToULong(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
+        public ulong ToULong(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
             int length = 8;
             byte[] tempArray = new byte[length];
@@ -233,25 +246,27 @@ namespace ArrayConverter
                 }
 
                 //返回转换结果
+                returnLength = length;
                 return BitConverter.ToUInt64(tempArray, 0);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToULong异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
 
+
         /// <summary>
-        /// 将byte[]转换为字面意义上的字符串
+        /// 将byte[]转换为2/8/10/16进制无符号整型的字符串格式
         /// </summary>
-        /// <param name="sourceArray"></param>
-        /// <param name="sourceStartIndex"></param>
-        /// <param name="length"></param>
-        /// <param name="fromBase"></param>
-        /// <param name="isFillZero"></param>
-        /// <param name="isToUpper"></param>
+        /// <param name="sourceArray">待转换的byte[]</param>
+        /// <param name="sourceStartIndex">数据的起点</param>
+        /// <param name="length">数据的长度</param>
+        /// <param name="fromBase">选择转换结果:2/8/10/16进制</param>
+        /// <param name="isFillZero">转换0</param>
+        /// <param name="isToUpper">将结果转换为大写</param>
         /// <returns></returns>
-        public static string ToLiteralString(byte[] sourceArray, int sourceStartIndex, int length, int fromBase, bool isFillZero = true, bool isToUpper = true)
+        public string ToStringInBase(byte[] sourceArray, int sourceStartIndex, int length, int fromBase, bool isFillZero = true, bool isToUpper = true)
         {
             int fillZeroLength;
             string result = "";
@@ -296,73 +311,112 @@ namespace ArrayConverter
                     result = result.ToUpper();
                 else
                     result = result.ToLower();
-                
+
                 //返回转换结果
+                returnLength = length;
                 return result;
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.ByteArray.ToULong异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
-    }
 
-    public class StringConverter
-    {
+
         /// <summary>
-        /// 将十六进制字符串转换为字节数组
+        /// 将byte[]转换为字符
         /// </summary>
-        /// <param name="input">待转换的十六进制字符串</param>
-        /// <returns>转换后的字节数组</returns>
-        public static byte[] ToByteArray(string input, int fromBase)
+        /// <param name="sourceArray"></param>
+        /// <param name="sourceStartIndex"></param>
+        /// <param name="isConvertToBigEndian"></param>
+        /// <returns></returns>
+        public char ToChar(byte[] sourceArray, int sourceStartIndex, bool isConvertToBigEndian = true)
         {
-
-            int fromBaseLength;
-            byte[] array;
+            int length = 2;
+            byte[] tempArray = new byte[length];
 
             try
             {
-                //不允许输入空字符串
-                if (input == string.Empty)
-                    throw new Exception("不允许输入空字符串");
-                
-                //根据进制确定字符串的单元截取长度
-                switch(fromBase)
-                {
-                    case 2:
-                        fromBaseLength = 8;
-                        break;
-                    case 8:
-                        fromBaseLength = 3;
-                        break;
-                    case 10:
-                        fromBaseLength = 3;
-                        break;
-                    case 16:
-                        fromBaseLength = 2;
-                        break;
-                    default:
-                        throw new Exception("进制选择错误");
-                }
+                //提取待转换的字节数组
+                Array.Copy(sourceArray, sourceStartIndex, tempArray, 0, length);
 
-                //校验字符串长度与进制匹配关系，相符就计算结果，不相符就返回异常
-                if (input.Length % fromBaseLength == 0)
+                //将小端对齐改为大端对齐
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
                 {
-                    array = new byte[input.Length / fromBaseLength];
-                    for (int i = 0; i < input.Length; i += fromBaseLength)
-                        array[i / fromBaseLength] = (byte)Convert.ToByte(input.Substring(i, fromBaseLength), fromBase);
-                }
-                else
-                {
-                    throw new Exception("字符串长度与进制不符");
+                    Array.Reverse(tempArray);
                 }
 
                 //返回转换结果
-                return array;
+                returnLength = length;
+                return BitConverter.ToChar(tempArray, 0);
             }
             catch (Exception e)
             {
-                throw new Exception($"函数ArrayConvert.String.ToByteArray异常:{e.Message}");
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
+            }
+        }
+
+
+        /*
+        /// <summary>
+        /// 将byte[]转换为字符串
+        /// </summary>
+        /// <param name="sourceArray">待转换的byte[]</param>
+        /// <param name="sourceStartIndex">待转换数据在源byte[]中的起点</param>
+        /// <param name="length">待转换数据的长度</param>
+        /// <param name="isFilterFrontEmpty">过滤前置的空byte</param>
+        /// <param name="isFilterRearEmpty">过滤后置的空byte</param>
+        /// <param name="isFilterMiddleEmpty">过滤中间的空byte</param>
+        /// <returns></returns>
+        public string ToUnicodeString(byte[] sourceArray, int sourceStartIndex, int length, bool isConvertToBigEndian = true)
+        {
+            byte[] bytes = new byte[length];
+
+            try
+            {
+                //Unicode字符串应由偶数个字节组成
+                if (sourceArray.Length % 2 != 0)
+                    throw new Exception("源字节数组的长度必须为偶数");
+                else if (length % 2 != 0)
+                    throw new Exception("目的字节数组的长度必须为偶数");
+
+                //提取待转换的字节数组
+                Array.Copy(sourceArray, sourceStartIndex, bytes, 0, length);
+
+                //将小端对齐改为大端对齐
+                if (BitConverter.IsLittleEndian && isConvertToBigEndian)
+                {
+                    Array.Reverse(tempArray);
+                }
+
+
+                //返回转换结果
+                returnLength = length;
+                return Encoding.Unicode.GetString(bytes);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
+            }
+            */
+        
+        /// <summary>
+        /// 去除字节数组中的尾随空值
+        /// </summary>
+        /// <param name="sourceArray">待处理的字节数组</param>
+        /// <returns>去除尾随空值后的字节数组</returns>
+        public byte[] TrimEndZero(byte[] sourceArray, int sourceStartIndex, int length)
+        {
+            byte[] bytes = new byte[length];
+
+            try
+            {
+                Array.Copy(sourceArray, sourceStartIndex, bytes, 0, length);
+                return bytes.TakeWhile((v, index) => bytes.Skip(index).Any(w => w != 0x00)).ToArray();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
     }
