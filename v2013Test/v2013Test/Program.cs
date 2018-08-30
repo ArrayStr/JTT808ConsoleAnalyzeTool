@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text;
 using ArrayConverter;
+using ConsolePrint;
 
 namespace v2013Test
 {
@@ -17,8 +18,6 @@ namespace v2013Test
                 //请输入需要分析的808报文
                 Console.WriteLine("请输入需要分析的808报文:");
                 string inputMsg = Console.ReadLine();
-                inputMsg = "7E0200002E086201812188000800000000000C000100000000000000000000000000000401010912180104000000002B04000004B9300117310100EC7E";
-                inputMsg = "7E0100002E00001999999800020000000000000000004D35312D44474E572D4C000000000000000000003939393939393809CFE641303030303200D87E";
 
                 //校对消息合法性,拆分消息,计算检验码,打印拆分结果
                 PreProcess preProcess = new PreProcess(inputMsg);
@@ -50,9 +49,13 @@ namespace v2013Test
                 //临时               
                 if (msgBodyType == null)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("---消息体:0x{0:X4}------------------", preProcess.MsgId);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("\n---消息体:0x{0:X4}------------------", preProcess.MsgId);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("还没做完,不服你咬我呀,啦啦啦啦啦");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     Console.ReadKey();
                     return;                   
                 }
@@ -65,6 +68,8 @@ namespace v2013Test
                 Console.WriteLine("\n---消息体:0x{0:X4}------------------", preProcess.MsgId);
                 msgBodyMethod.Invoke(msgBodyObj, msgBodyObjPara);
                 #endregion
+
+                //测试
 
                 //按任意键退出Console
                 Console.ReadKey();

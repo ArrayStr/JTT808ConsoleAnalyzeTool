@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using ArrayConverter;
+using ConsolePrint;
 
 namespace v2013Test
 {
@@ -72,50 +74,37 @@ namespace v2013Test
                 MsgSequence = iBytesConverter.ToUShort(msgHead, startIndex);
 
                 #region  打印结果
+                ConsoleColorPrint iPrint = new ConsoleColorPrint();
+                string[] iPrintStrings;
+                ConsoleColor[] iPrintConsoleColor;
+
+                //标题
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("\n---消息头------------------");
                 //消息ID
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("消息ID：");              
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("0x{0:X4}", MsgId);
+                iPrintStrings = new string[3] { "消息ID：", "0x", MsgId.ToString("X4") };
+                iPrintConsoleColor = new ConsoleColor[3] { ConsoleColor.Magenta, ConsoleColor.White, ConsoleColor.White };
+                iPrint.MultipleInOneLine(iPrintStrings, iPrintConsoleColor);
                 //消息体长度
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("消息体长度：");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("{0}Bytes", MsgLength);
+                iPrintStrings = new string[3] { "消息体长度：", MsgLength.ToString(), "Bytes" };
+                iPrintConsoleColor = new ConsoleColor[3] { ConsoleColor.Magenta, ConsoleColor.White, ConsoleColor.White };
+                iPrint.MultipleInOneLine(iPrintStrings, iPrintConsoleColor);
                 //数据加密方式
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("数据加密方式：");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("{0}", EncryptionType);
+                iPrint.DoubleInOneLine("数据加密方式：", ConsoleColor.Magenta, EncryptionType, ConsoleColor.White);
                 //分包
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("分包：");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("{0}", IsSubpackage);
+                iPrint.DoubleInOneLine("分包：", ConsoleColor.Magenta, IsSubpackage.ToString(), ConsoleColor.White);
                 //保留
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("保留：");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("0x{0:X2}", Reserved);
+                iPrint.DoubleInOneLine("保留：", ConsoleColor.Magenta, Reserved.ToString(), ConsoleColor.White);
                 //终端手机号
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("终端手机号：");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("{0}", PhoneNumber);
+                iPrint.DoubleInOneLine("终端手机号：", ConsoleColor.Magenta, PhoneNumber, ConsoleColor.White);
                 //消息流水号
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write("消息流水号：");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("{0}", MsgSequence);
-                Console.ForegroundColor = ConsoleColor.Gray;
+                iPrint.DoubleInOneLine("消息流水号：", ConsoleColor.Magenta, MsgSequence.ToString(), ConsoleColor.White);
                 #endregion
 
             }
             catch (Exception e)
             {
-                throw;
+                throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
         }
     }
