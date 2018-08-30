@@ -399,12 +399,12 @@ namespace ArrayConverter
                 throw new Exception($"{this.GetType().FullName}.{MethodBase.GetCurrentMethod().Name}异常:{e.Message}");
             }
             */
-        
+
         /// <summary>
         /// 去除字节数组中的尾随空值
         /// </summary>
         /// <param name="sourceArray">待处理的字节数组</param>
-        /// <returns>去除尾随空值后的字节数组</returns>
+        /// <returns>处理后的字节数组</returns>
         public byte[] TrimEndZero(byte[] sourceArray, int sourceStartIndex, int length)
         {
             byte[] bytes = new byte[length];

@@ -20,13 +20,17 @@ namespace v2013Test
             string terminalId;      //终端ID,详见JTT808-2013第8.5章节
             byte carPlateColor;     //车牌颜色,详见JTT808-2013第8.5章节
             string carId;           //车辆标识,详见JTT808-2013第8.5章节
-            string carPlateNumber;  //车辆牌照
-            string carVin;          //车辆VIN
+            string carPlateNumber = "";  //车辆牌照,详见JTT808-2013第8.5章节
+            string carVin = "";          //车辆VIN,详见JTT808-2013第8.5章节
 
-            //临时变量            
+            //临时变量           
             BytesConverter iBytesConverter = new BytesConverter();
             int startIndex = 0;
             int length;
+
+            //所有字符串都使用GBK编码规则
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            Encoding gbk = Encoding.GetEncoding("GBK");
 
             try
             {
@@ -43,17 +47,17 @@ namespace v2013Test
 
                 //提取"制造商ID"
                 length = 5;
-                manufId = Encoding.UTF8.GetString(input, startIndex, length);
+                manufId = gbk.GetString(input, startIndex, length);
                 startIndex = startIndex + length;
 
                 //提取"终端型号"
                 length = 20;
-                terminalModel = Encoding.UTF8.GetString(iBytesConverter.TrimEndZero(input, startIndex, length));
+                terminalModel = gbk.GetString(iBytesConverter.TrimEndZero(input, startIndex, length));
                 startIndex = startIndex + length;
 
                 //提取"终端ID"
                 length = 7;
-                terminalId = Encoding.UTF8.GetString(iBytesConverter.TrimEndZero(input, startIndex, length));
+                terminalId = gbk.GetString(iBytesConverter.TrimEndZero(input, startIndex, length));
                 startIndex = startIndex + length;
 
                 //提取"车牌颜色"
@@ -64,33 +68,22 @@ namespace v2013Test
                 //提取"车辆标识"     
                 //车牌颜色为0时,车辆标识表示车辆VIN
                 //车牌颜色不为0时,车辆标识表示公安交通管理部门颁发的机动车号牌
+                length = input.Length - startIndex;
                 if (carPlateColor == 0) 
-                {
-                    length = input.Length - startIndex;
-                    carVin = Encoding.UTF8.GetString(input, startIndex, length);
-
-                    carId = carVin;
+                {                   
+                    carVin = gbk.GetString(input, startIndex, length);
                 }
                 else    
                 {
-                    //提取车牌中的首位汉字
-                    carPlateNumber = Convert.ToString(iBytesConverter.ToChar(input, startIndex));
-                    length = iBytesConverter.returnLength;
-                    startIndex = startIndex + length;
-                    //提取车牌中的数字和字母
-                    length = input.Length - startIndex;
-                    carPlateNumber = Encoding.UTF8.GetString(input, startIndex, length);
-
-                    carId = carPlateNumber;
+                    carPlateNumber = gbk.GetString(input, startIndex, length);
                 }
-
 
                 #region 打印
                 ConsoleColorPrint iPrint = new ConsoleColorPrint();
                 //省域ID
-                iPrint.DoubleInOneLine("省域ID：", ConsoleColor.Green, provinceId.ToString("X2"), ConsoleColor.White);
+                iPrint.DoubleInOneLine("省域ID：", ConsoleColor.Green, provinceId.ToString(), ConsoleColor.White);
                 //市县域ID
-                iPrint.DoubleInOneLine("市县域ID：", ConsoleColor.Green, cityId.ToString("X4"), ConsoleColor.White);
+                iPrint.DoubleInOneLine("市县域ID：", ConsoleColor.Green, cityId.ToString("D4"), ConsoleColor.White);
                 //制造商ID
                 iPrint.DoubleInOneLine("制造商ID：", ConsoleColor.Green, manufId, ConsoleColor.White);
                 //终端型号
@@ -101,9 +94,9 @@ namespace v2013Test
                 iPrint.DoubleInOneLine("车牌颜色：", ConsoleColor.Green, carPlateColor.ToString(), ConsoleColor.White);
                 //车辆标识           
                 if (carPlateColor == 0)
-                    iPrint.DoubleInOneLine("车辆VIN：", ConsoleColor.Green, carId, ConsoleColor.White);                       
+                    iPrint.DoubleInOneLine("车辆VIN：", ConsoleColor.Green, carVin, ConsoleColor.White);                       
                 else
-                    iPrint.DoubleInOneLine("机动车号牌：", ConsoleColor.Green, carId, ConsoleColor.White);
+                    iPrint.DoubleInOneLine("机动车号牌：", ConsoleColor.Green, carPlateNumber, ConsoleColor.White);
                 #endregion
             }
             catch (Exception e)
