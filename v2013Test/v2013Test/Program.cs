@@ -65,7 +65,12 @@ namespace v2013Test
 
                 //调用
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine("\n---消息体:0x{0:X4}------------------", preProcess.MsgId);
+                Console.Write("\n---消息体:");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("0x{0:X4}", preProcess.MsgId);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("------------------");
+
                 msgBodyMethod.Invoke(msgBodyObj, msgBodyObjPara);
                 #endregion
 

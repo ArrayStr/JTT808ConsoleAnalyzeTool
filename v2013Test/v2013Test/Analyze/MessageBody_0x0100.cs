@@ -80,8 +80,9 @@ namespace v2013Test
 
                 #region 打印
                 ConsoleColorPrint iPrint = new ConsoleColorPrint();
+                iPrint.TripleInOneLine("---消息体名称：", ConsoleColor.Gray, "终端注册", ConsoleColor.Green, "---", ConsoleColor.Gray);
                 //省域ID
-                iPrint.DoubleInOneLine("省域ID：", ConsoleColor.Green, provinceId.ToString(), ConsoleColor.White);
+                iPrint.DoubleInOneLine("省域ID：", ConsoleColor.Green, provinceId.ToString("D"), ConsoleColor.White);
                 //市县域ID
                 iPrint.DoubleInOneLine("市县域ID：", ConsoleColor.Green, cityId.ToString("D4"), ConsoleColor.White);
                 //制造商ID
