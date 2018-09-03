@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace v2013Test
+namespace JTT808_v2013
 {
     class MessageBody_0x0002
     {
