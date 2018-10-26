@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using ConsolePrint;
+using Newtonsoft.Json;
 
 namespace JTT808_v2013
 {
@@ -19,7 +20,7 @@ namespace JTT808_v2013
             public areaPass areaPass;      //0x12
             public timeAlarm timeAlarm;    //0x13
             public carSignal carSignal;    //0x25
-            public io io;                  //0x2A
+            public io io;                  //0x2A657
             public analog analog;          //0x2B
             public byte phoneSignal;       //0x30
             public byte gnssCount;         //0x31
@@ -731,6 +732,7 @@ namespace JTT808_v2013
                 }
 
                 #endregion
+                //Console.WriteLine(JsonConvert.SerializeObject(extralLocInfoVar, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
 
                 Console.ReadKey();
             }

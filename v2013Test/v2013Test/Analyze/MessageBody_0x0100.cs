@@ -10,6 +10,18 @@ namespace JTT808_v2013
 {
     class MessageBody_0x0100
     {
+        private struct Protocol
+        {
+            ushort provinceId;      //省域ID,详见JTT808-2013第8.5章节
+            ushort cityId;          //市县域ID,详见JTT808-2013第8.5章节
+            string manufId;         //制造商ID,详见JTT808-2013第8.5章节
+            string terminalModel;   //终端型号,详见JTT808-2013第8.5章节
+            string terminalId;      //终端ID,详见JTT808-2013第8.5章节
+            byte carPlateColor;     //车牌颜色,详见JTT808-2013第8.5章节
+            string carPlateNumber;  //车辆牌照,详见JTT808-2013第8.5章节的"车辆标识"字段
+            string carVin;          //车辆VIN,详见JTT808-2013第8.5章节的"车辆标识"字段
+        }
+
         public void Main(byte[] input)
         {
             //协议相关变量
