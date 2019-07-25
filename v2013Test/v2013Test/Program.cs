@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using ArrayConverter;
@@ -13,11 +14,15 @@ namespace JTT808_v2013
             try
             {
                 //获取当前类所在的命名空间
-                string currentNamespace = MethodBase.GetCurrentMethod().ReflectedType.Namespace;
-
+                string currentNamespace = MethodBase.GetCurrentMethod().ReflectedType.Namespace;                           
+                
                 //请输入需要分析的808报文
                 Console.WriteLine("请输入需要分析的808报文:");
+
+                Stream steam = Console.OpenStandardInput();
+                Console.SetIn(new StreamReader(steam, Encoding.Default, false, 5000));
                 string inputMsg = Console.ReadLine();
+
 
                 //校对消息合法性,拆分消息,计算检验码,打印拆分结果
                 PreProcess preProcess = new PreProcess(inputMsg);
